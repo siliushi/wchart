@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Line</title>
+</head>
+<body>
+	<canvas id="liner" width="500" height="300"></canvas>
+	<script src="../dist/line.min.js"></script>
+	<script>
+			/* 解决高分辨设备模糊问题 */
+			var linerCavs = document.getElementById('liner');
+			var context = linerCavs.getContext('2d');
+			var backingStore = context.backingStorePixelRatio ||
+		                            context.webkitBackingStorePixelRatio ||
+		                            context.mozBackingStorePixelRatio ||
+		                            context.msBackingStorePixelRatio ||
+		                            context.oBackingStorePixelRatio ||
+		                            context.backingStorePixelRatio || 1;
+
+		    var ratio = (window.devicePixelRatio || 1) / backingStore;
+
+		    if (ratio > 1) {
+		        linerCavs.style.height = linerCavs.height + 'px';
+		        linerCavs.style.width = linerCavs.width + 'px';
+		        linerCavs.width *= ratio;
+		        linerCavs.height *= ratio;
+		    }
+
+
+
+		    /* 测试数据 */
+		    var label = ['2017年3月20', '2017年3月21', '2017年3月22', '2017年3月23', '2017年3月24'],
+		    	data = [500, 150, 300, 300, 500];
+		    new Line({
+		    	element: 'liner',
+		    	data: {
+		    		labels : label,
+		    		pointDot: true,
+		    		pointDotBorderWidth: 5,
+		    		pointDotRadius: 4,
+		    		pointDotStrokeWidth: 2,
+		    		pointColor: '#7077f2',
+		    		datasetStroke: true,
+		    		datasetStrokeWidth: 2,
+		    		datasetFill: true,
+		    		animation: false,
+		    		animationSteps: 60,
+		    		datasets : [
+		    			{
+		    				strokeColor : "#7077f2",
+		    				pointColor : "rgba(151,187,205,1)",
+		    				pointStrokeColor : "#fff",
+		    				data : data
+		    			}
+		    		]
+		    	}
+		    }).draw();
+	</script>
+</body>
+</html>

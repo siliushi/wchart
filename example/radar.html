@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Radar</title>
+</head>
+<body>
+	<canvas id="radar" width="500" height="300"></canvas>
+	<script src="../dist/radar.min.js"></script>
+	<script>
+		/* 解决高分辨设备模糊问题 */
+		var radarCavs = document.getElementById('radar');
+		var context = radarCavs.getContext('2d');
+		var backingStore = context.backingStorePixelRatio ||
+	                            context.webkitBackingStorePixelRatio ||
+	                            context.mozBackingStorePixelRatio ||
+	                            context.msBackingStorePixelRatio ||
+	                            context.oBackingStorePixelRatio ||
+	                            context.backingStorePixelRatio || 1;
+
+	    var ratio = (window.devicePixelRatio || 1) / backingStore;
+
+	    if (ratio > 1) {
+	        radarCavs.style.height = radarCavs.height + 'px';
+	        radarCavs.style.width = radarCavs.width + 'px';
+	        radarCavs.width *= ratio;
+	        radarCavs.height *= ratio;
+	    }
+
+
+		new Radar({
+			element: 'radar',
+			radius: 70,
+			polar: [
+			    { text: '模块一', max: 1, label: { l: 0, t: -15 }, clickHandler: function() {
+			    	alert('模块一');
+			    } },
+			    { text: '模块二', max: 1, label: {l: 25, t: -10 }, clickHandler: function() {
+			    	alert('模块二');
+			    } },
+			    { text: '模块三', max: 1, label: {l: 25, t: 5 }, clickHandler: function() {
+			    	alert('模块三');
+			    } },
+			    { text: '模块四', max: 1, label: {l: 0, t: 15 }, clickHandler: function() {
+			    	alert('模块四');
+			    } },
+			    { text: '模块五', max: 1, label: {l: -25, t: 10 }, clickHandler: function() {
+			    	alert('模块五');
+			    } },
+			    { text: '模块六', max: 1, label: {l: -25, t: -5 }, clickHandler: function() {
+			    	alert('模块六');
+			    } }
+			],
+			data: [0.3,0.5,0.2,0.6,0.3,0.8],
+			styles: {
+			    label: {
+			        image: '',
+			        font: '11px'
+			    }
+			}
+		}).draw();
+	</script>
+</body>
+</html>
